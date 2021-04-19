@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java.iml" filepath="$PROJECT_DIR$/.idea/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/Sample.iml" filepath="$PROJECT_DIR$/Sample/Sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目1/题目1.iml" filepath="$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目1/题目1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目2/题目2.iml" filepath="$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目2/题目2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目3/题目3.iml" filepath="$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目3/题目3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目4/题目4.iml" filepath="$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目4/题目4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目5/题目5.iml" filepath="$PROJECT_DIR$/Sample/homework/第一阶段模块一/题目5/题目5.iml" />
+    </modules>
+  </component>
+</project>
