@@ -21,7 +21,10 @@ public class Gobang {
         }
 
         for(int x=0;x<ret.length;x++){
-            System.out.println(Arrays.toString(ret[x]));
+            for(int y=0;y<ret[x].length;y++){
+                System.out.print(ret[x][y]);
+            }
+            System.out.println();
         }
     }
 }

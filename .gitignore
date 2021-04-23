@@ -1,2 +1,6 @@
 .idea
 *.iml
+out
+*/index-files
+*/script-dir
+*/resources
