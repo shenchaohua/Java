@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 public class MoveBitTest {
     public static void main(String[] main){
         byte a = 64;

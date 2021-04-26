@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 import java.math.BigDecimal;
 public class DoubleTest {
     public static void main(String[] args){

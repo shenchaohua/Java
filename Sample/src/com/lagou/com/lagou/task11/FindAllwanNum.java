@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 /*
 编程找出 1000 以内的所有完数并打印出来。
  */

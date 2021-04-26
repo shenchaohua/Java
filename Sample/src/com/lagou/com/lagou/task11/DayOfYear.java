@@ -1,4 +1,4 @@
-/*
+package com.lagou.com.lagou.task11;/*
 提示用户输入年月日信息，判断这一天是这一年中的第几天并打印。
  */
 import java.util.Scanner;

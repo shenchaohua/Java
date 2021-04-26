@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 public class DefaultValue {
     public static void main(String[] args){
         String a="";

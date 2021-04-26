@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 public class Person {
     String name;
     Person(){

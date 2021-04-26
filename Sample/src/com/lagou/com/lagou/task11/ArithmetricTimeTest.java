@@ -1,3 +1,5 @@
+package com.lagou.com.lagou.task11;
+
 import java.util.Scanner;
 
 public class ArithmetricTimeTest {
