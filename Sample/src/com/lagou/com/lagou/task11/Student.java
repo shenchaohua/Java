@@ -3,7 +3,7 @@ package com.lagou.com.lagou.task11;
 import java.io.FilenameFilter;
 import java.util.Objects;
 
-public class Student {
+public class Student extends Person {
     private String name;
 
     @Override
@@ -12,6 +12,10 @@ public class Student {
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return Objects.equals(name, student.name);
+    }
+
+    public void test(){
+
     }
 
     @Override

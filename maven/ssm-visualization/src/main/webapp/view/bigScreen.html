@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<title>Elmer I Fast build Admin dashboard for any platform</title>
+	<meta name="description" content="Elmer is a Dashboard & Admin Site Responsive Template by hencework." />
+	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Elmer Admin, Elmeradmin, premium admin templates, responsive admin, sass, panel, software, ui, dwh, web app, application" />
+	<meta name="author" content="hencework"/>
+
+	<!-- Morris Charts CSS -->
+    <link href="vendors/bower_components/morris.js/morris.css" rel="stylesheet" type="text/css"/>
+	<!-- Calendar CSS -->
+	<link href="vendors/bower_components/fullcalendar/dist/fullcalendar.css" rel="stylesheet" type="text/css"/>
+	<!-- bootstrap-select CSS -->
+	<link href="vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
+	<!-- switchery CSS -->
+	<link href="vendors/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" type="text/css"/>
+	<!-- Data table CSS -->
+	<link href="vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+	<!-- Custom CSS -->
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<!--Preloader-->
+	<div class="preloader-it">
+		<div class="la-anim-1"></div>
+	</div>
+	<!--/Preloader-->
+    <div class="wrapper  theme-1-active pimary-color-blue" id="app">
+        <!-- Main Content -->
+				<!-- Row -->
+				<div class="row">
+					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+						<div class="panel panel-default card-view panel-refresh">
+							<div class="refresh-container">
+								<div class="la-anim-1"></div>
+							</div>
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h6 class="panel-title txt-dark">各个城市招聘统计</h6>
+								</div>
+								<div class="pull-right">
+									<a href="#" class="pull-left inline-block refresh mr-15">
+										<i class="zmdi zmdi-replay"></i>
+									</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<!-- 1.引入recruitment2 各个城市招聘信息 -->
+									<iframe src="recruitment2.html" style="width: 600px;height: 378px" scrolling="no"></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+						<div class="panel panel-default card-view panel-refresh">
+							<div class="refresh-container">
+								<div class="la-anim-1"></div>
+							</div>
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h6 class="panel-title txt-dark">全国各省招聘人数统计</h6>
+								</div>
+								<div class="pull-right">
+									<a href="#" class="pull-left inline-block refresh mr-15">
+										<i class="zmdi zmdi-replay"></i>
+									</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<!-- 2.引入各个城市招聘地图 -->
+									<iframe src="map2.html" style="width: 600px;height: 378px" scrolling="no"></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Row -->
+
+				<!-- Row -->
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<!-- 3.引入热门行业对比 -->
+						<iframe src="industryCompare2.html" style="width: 1350px;height: 280px" scrolling="no"></iframe>
+					</div>
+				</div>
+				<!-- /Row -->
+        <!-- /Main Content -->
+
+    </div>
+    <!-- /#wrapper -->
+	<!-- JavaScript -->
+    <!-- jQuery -->
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Calender JavaScripts -->
+	<script src="vendors/bower_components/moment/min/moment.min.js"></script>
+	<script src="vendors/jquery-ui.min.js"></script>
+	<script src="vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+	<script src="dist/js/fullcalendar-data.js"></script>
+	<!-- Progressbar Animation JavaScript -->
+	<script src="vendors/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
+	<script src="vendors/bower_components/jquery.counterup/jquery.counterup.min.js"></script>
+	<!-- Data table JavaScript -->
+	<script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	<!-- Slimscroll JavaScript -->
+	<script src="dist/js/jquery.slimscroll.js"></script>
+	<!-- ChartJS JavaScript -->
+	<script src="vendors/chart.js/Chart.min.js"></script>
+	<!-- Fancy Dropdown JS -->
+	<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+	<!-- Sparkline JavaScript -->
+	<script src="vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script>
+	<script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+	<!-- Morris Charts JavaScript -->
+    <script src="vendors/bower_components/raphael/raphael.min.js"></script>
+    <script src="vendors/bower_components/morris.js/morris.min.js"></script>
+    <script src="dist/js/morris-data.js"></script>
+	<!-- Owl JavaScript -->
+	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+	<!-- Bootstrap Select JavaScript -->
+	<script src="vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<!-- Switchery JavaScript -->
+	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
+	<!-- Init JavaScript -->
+	<script src="dist/js/init.js"></script>
+	<script src="dist/js/widgets-data.js"></script>
+</body>
+
+</html>

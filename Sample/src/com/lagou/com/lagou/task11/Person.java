@@ -12,4 +12,8 @@ public class Person {
         Person person = new Person("test");
         System.out.println(person.name );
     }
+
+    public final void test(){
+        System.out.println("person");
+    }
 }

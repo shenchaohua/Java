@@ -4,3 +4,14 @@ out
 */index-files
 */script-dir
 */resources
+**/vendors
+vendors
+*/vendors
+**/dist
+dist/
+**/target
+*/dist
+**/.mvn
+**/static
+**/js
+**/css

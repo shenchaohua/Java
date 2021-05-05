@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Elmer I Fast build Admin dashboard for any platform</title>
+		<meta name="description" content="Elmer is a Dashboard & Admin Site Responsive Template by hencework." />
+		<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Elmer Admin, Elmeradmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+		<meta name="author" content="hencework"/>
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		<!-- vector map CSS -->
+		<link href="view/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<!-- Custom CSS -->
+		<link href="view/dist/css/style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<!--Preloader-->
+		<div class="preloader-it">
+			<div class="la-anim-1"></div>
+		</div>
+		<!--/Preloader-->
+		<div class="wrapper  pa-0">
+			<header class="sp-header">
+				<div class="sp-logo-wrap pull-left">
+					<a href="index.html">
+						<img class="brand-img mr-10" src="view/dist/img/logo.png" alt="brand"/>
+						<span class="brand-text">LaGou</span>
+					</a>
+				</div>
+				<div class="clearfix"></div>
+			</header>
+			
+			<!-- Main Content -->
+			<div class="page-wrapper pa-0 ma-0 auth-page" id="app">
+				<div class="container-fluid">
+					<!-- Row -->
+					<div class="table-struct full-width full-height">
+						<div class="table-cell vertical-align-middle auth-form-wrap">
+							<div class="auth-form  ml-auto mr-auto no-float">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<div class="mb-30">
+											<h3 class="text-center txt-dark mb-10">Sign in to LaGou</h3>
+											<h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+										</div>	
+										<div class="form-wrap">
+											<form action="#">
+												<div class="form-group">
+													<label class="control-label mb-10" for="uname">User Account</label>
+													<input type="text" class="form-control" required="" id="uname" name="username"  placeholder="Enter username">
+												</div>
+												<div class="form-group">
+													<label class="pull-left control-label mb-10" for="pwd">Password</label>
+													<input type="password" class="form-control" required="" id="pwd" name="password"  placeholder="Enter pwd">
+												</div>
+												<div class="form-group">
+														<span id="errMsg"></span>
+												</div>
+
+												<div class="form-group text-center">
+													<button type="button"  id="btn" class="btn btn-primary  btn-rounded">sign in</button>
+												</div>
+											</form>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->	
+				</div>
+				
+			</div>
+			<!-- /Main Content -->
+		
+		</div>
+		<!-- /#wrapper -->
+		
+		<!-- jQuery -->
+		<script src="view/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="view/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="view/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+		<!-- Slimscroll JavaScript -->
+		<script src="view/dist/js/jquery.slimscroll.js"></script>
+		<!-- Init JavaScript -->
+		<script src="view/dist/js/init.js"></script>
+
+		<script>
+			//发送异步请求,完成登录
+			$(function(){
+				//1.给btn按钮派发一个单击事件
+				$("#btn").click(function(){
+
+					//2.获取用户名
+					var username = $("#uname").val();
+					//3.获取密码
+					var pwd = $("#pwd").val();
+					//4.发送post方式的ajax请求
+					$.post("/lg_visualization/user/login.do","username="+username+"&password="+pwd,function(data){
+						//5.判断用户是否登录成功
+						if(data.status ==0){
+							location.href = "view/index.html";
+						}else{
+							$("#errMsg").html(data.msg)
+						}
+					},"json")
+				})
+
+				//清除每次用户输入的用户名和密码
+				$("#uname").val("");
+				$("#pwd").val("");
+			})
+
+		</script>
+	</body>
+</html>

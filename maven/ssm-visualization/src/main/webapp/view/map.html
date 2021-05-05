@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>拉勾可视化项目-统计全国各省招聘</title>
+	<meta name="description" content="Elmer is a Dashboard & Admin Site Responsive Template by hencework." />
+	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Elmer Admin, Elmeradmin, premium admin templates, responsive admin, sass, panel, software, ui, dwh, web app, application" />
+	<meta name="author" content="hencework"/>
+	
+	<!-- Custom CSS -->
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	<script src="dist/js/echarts.min.js"></script>
+	<script src="dist/js/china.js"></script>
+	
+</head>
+<body>
+
+	<!--/Preloader-->
+    <div class="wrapper  theme-1-active pimary-color-blue" >
+			<div class="panel panel-default card-view">
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">统计各省份招聘人数情况</h6>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in" >
+					<!--图表区域-->
+					<div id="main" style="width: 800px; height: 700px; margin-left: 300px" ></div>
+				</div>
+			</div>
+    </div>
+
+
+	<!-- jQuery -->
+	<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Slimscroll JavaScript -->
+	<script src="dist/js/jquery.slimscroll.js"></script>
+	<!-- Fancy Dropdown JS -->
+	<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+	<!-- Owl JavaScript -->
+	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+	<!-- Switchery JavaScript -->
+	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
+	<!-- Init JavaScript -->
+	<script src="dist/js/init.js"></script>
+
+	<script>
+		var myChart = echarts.init(document.getElementById('main'));
+		//执行图表的配置和数据
+		var titleName = "2020年全国各个城市招聘数量";
+		var mapName = "china";
+
+		$.post("/lg_visualization/map/mapData.do",function(data){
+			myChart.setOption({
+				title: {
+					text: titleName,
+					x: 'center',
+					textStyle: {
+						fontSize: 24
+					}
+				},
+				tooltip: {    //提示框组件
+					trigger: "item",  //数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用
+					//提示框浮层内容格式器，支持字符串模板和回调函数两种形式。
+					formatter: function (params) {
+						return params.name + "招聘人数:" + params.value + "人";
+					}
+				},
+				toolbox: {
+					feature: {   //各工具配置项
+						saveAsImage: {}  //保存为图片
+					}
+				},
+				visualMap: {  //是视觉映射组件
+					show: true,  //是否显示 visualMap-piecewise 组件
+					left: "left",//visualMap 组件离容器左侧的距离
+					top: "bottom",   //visualMap 组件离容器上侧的距离
+					seriesIndex: [0],  //指定取哪个系列的数据，即哪个系列的
+					type: "piecewise",  //分段型视觉映射组件
+					pieces: [ //分段式视觉映射组件的每一段的范围
+						{ge : 30000},  //设置大于10000人数
+						{ge :10000 , lte: 29999}, //设置人数1000-9999
+						{ge :  5000, lte : 9999} ,
+						{ge : 1000 , lte :  4999},
+						{ge : 0 , lte : 999}
+					],
+					inRange : { //定义 在选中范围中 的视觉元素
+						color : ['rgb(168,188,180)','rgb(141,188,180)', 'rgb(200,200,160)' , 'rgb(249,207,178)' , 'rgb(254,57,101)']
+					},
+					textStyle: {
+						color: "#000000"
+					}
+				},
+				geo: {  //地理坐标系组件
+					show: true,  //是否显示地理坐标系组件
+					map: mapName,  //地图类型。
+					label: { //图形上的文本标签，可用于说明图形的一些数据信息
+						normal: {
+							show: true,
+							fontSize: 12
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					roam: false, //是否开启鼠标缩放和平移漫游。默认不开启
+					itemStyle : {
+						normal: { //普通状态下样式
+							areaColor: "#FFFFFF",
+							borderColor: "#666666",
+						},
+						emphasis: { //高亮状态下的多边形和标签样式。
+							areaColor: "#0099CC"  //地图区域的颜色。
+						}
+					}
+				},
+				series: [
+					{
+						type: "map",
+						map: mapName,
+						geoIndex: 0, // geoIndex 指定一个 geo 组件
+						animation: false,  //是否开启动画。
+						data:data.data
+					},
+				]
+			})
+		})
+
+	</script>
+</body>
+</html>

@@ -11,8 +11,8 @@ public class test {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/tmp";
-        Connection con = DriverManager.getConnection(url, "root", "123");
+        String url = "jdbc:mysql://localhost:3306/mybatis_db";
+        Connection con = DriverManager.getConnection(url, "root", "123456");
         System.out.println(con);
         Statement statement = con.createStatement();
 //        ResultSet execute = statement.executeQuery("select * from jdbc_user;");
@@ -21,15 +21,15 @@ public class test {
 //        System.out.println(execute.next());
 //        System.out.println(execute.getString("username"));
 
-        String sql = "select * from jdbc_user where username = ? and password = ?";
+        String sql = "select * from user where username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1,"admin");
-        ps.setString(2,"123456");
+//        ps.setString(2,"123456");
         ResultSet resultSet = ps.executeQuery();
         System.out.println(resultSet.next());
 
-        Connection connection = dataSource.getConnection();
-        System.out.println(connection);
+//        Connection connection = dataSource.getConnection();
+//        System.out.println(connection);
 
     }
 }

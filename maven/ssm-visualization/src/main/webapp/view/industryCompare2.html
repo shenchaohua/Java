@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Elmer I Fast build Admin dashboard for any platform</title>
+	<meta name="description" content="Elmer is a Dashboard & Admin Site Responsive Template by hencework." />
+	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Elmer Admin, Elmeradmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+	<meta name="author" content="hencework"/>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+	<!-- Custom CSS -->
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	<script src="dist/js/echarts.min.js"></script>
+</head>
+<body>
+
+<!--/Preloader-->
+<div class="wrapper  theme-1-active pimary-color-blue">
+	<!-- Main Content -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<!--展示图表区域-->
+						<div id="main" style="width: 1350px;height: 280px"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Main Content -->
+
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- ChartJS JavaScript -->
+<script src="vendors/chart.js/Chart.min.js"></script>
+<script src="dist/js/chartjs-data.js"></script>
+<!-- Slimscroll JavaScript -->
+<script src="dist/js/jquery.slimscroll.js"></script>
+<!-- Fancy Dropdown JS -->
+<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+<!-- Owl JavaScript -->
+<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+<!-- Switchery JavaScript -->
+<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
+<!-- Init JavaScript -->
+<script src="dist/js/init.js"></script>
+
+</body>
+<script>
+	//1.创建echart对象
+	var mychart = echarts.init(document.getElementById("main"));
+
+	//2.发送ajax请求
+	$.post("/lg_visualization/industry/industryCompare.do",function(data){
+		//3.设置option
+		mychart.setOption({
+			title: {
+				text: '统计行业招聘对比'
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'cross',
+					label: {
+						backgroundColor: '#6a7985'
+					}
+				}
+			},
+			legend: {
+				data: data.data.industryNameList
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {}
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: [
+				{
+					type: 'category',
+					boundaryGap: false,
+					data: data.data.dateTime
+				}
+			],
+			yAxis: [
+				{
+					type: 'value'
+				}
+			],
+			series: [
+				{
+					name: '销售',
+					type: 'line',
+					stack: '总量',
+					smooth : true, //是否平滑展示
+					areaStyle: {},
+					data: data.data.sell,
+					label: {  //给图形上添加文本标签
+						normal :{
+							show : true, //是否显示标签
+							position : 'top' //数据展示的位置
+						}
+					}
+				},
+				{
+					name: '服务业',
+					type: 'line',
+					stack: '总量',
+					smooth : true, //是否平滑展示
+					areaStyle: {},
+					data: data.data.server,
+					label: {  //给图形上添加文本标签
+						normal :{
+							show : true, //是否显示标签
+							position : 'top' //数据展示的位置
+						}
+					}
+				},
+				{
+					name: '生产制造',
+					type: 'line',
+					stack: '总量',
+					smooth : true, //是否平滑展示
+					areaStyle: {},
+					data: data.data.pro,
+					label: {  //给图形上添加文本标签
+						normal :{
+							show : true, //是否显示标签
+							position : 'top' //数据展示的位置
+						}
+					}
+				}
+			]
+		});
+	},"json")
+</script>
+</html>

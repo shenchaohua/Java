@@ -1,0 +1,5 @@
+LOG_DIR = f:/logs
+LOG_TMP_DIR = f:/log_tmp/
+LOG_SAVE_DIR = /logs/
+LOG_BK_DIR = f:/log_bak/
+LOG_PREFIX = access.log.

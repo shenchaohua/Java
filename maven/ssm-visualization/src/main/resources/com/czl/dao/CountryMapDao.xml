@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.czl.dao.CountryMapDao">
+
+   <resultMap id="provinceResultMap" type="ProvinceVo" autoMapping="true"  >
+        <!-- 主键映射      -->
+        <id column="ProvinceID" property="pid"></id>
+       <!-- 普通字段映射      -->
+       <result column="name" property="name"/>
+       <!-- 映射集合数据类型       -->
+       <collection property="city" javaType="list"  ofType="CityVo" autoMapping="true">
+           <!-- 主键映射  -->
+           <id column="CityID" property="cid" />
+       </collection>
+   </resultMap>
+
+<!--  1.查询省份有多少个城市  -->
+    <select id="queryProvinceCity" resultMap="provinceResultMap">
+        SELECT p.ProvinceID , p.Name  NAME , c.NAME cName
+        FROM Province p
+        LEFT JOIN City c
+        ON c.ProvinceID = p.ProvinceID
+    </select>
+
+<!--  2.城市有多少个招聘岗位-->
+    <select id="queryCityNum" resultType="CityVo">
+        SELECT position_city cName ,COUNT(*) num
+        FROM position_info_v2
+        WHERE position_city != ''
+        GROUP BY position_city  ORDER BY num DESC;
+    </select>
+
+</mapper>

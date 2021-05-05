@@ -1,0 +1,21 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /
+##
+spring:
+  datasource:
+    name: druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/tmp?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  #整合mybatis
+  mybatis:
+    mapper-locations: classpath:mapper/*Mapper.xml #声明Mybatis映射文件所在的位置
+  #config-location: classpath:mybatis.xml #声明Mybatis配置文件所在位置

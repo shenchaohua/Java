@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Elmer I Fast build Admin dashboard for any platform</title>
+	<meta name="description" content="Elmer is a Dashboard & Admin Site Responsive Template by hencework." />
+	<meta name="keywords" content="admin, admin dashboard, admin template, cms, crm, Elmer Admin, Elmeradmin, premium admin templates, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+	<meta name="author" content="hencework"/>
+
+	<!-- Custom CSS -->
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	<script src="dist/js/echarts.min.js"></script>
+
+</head>
+<body>
+
+	<!--/Preloader-->
+    <div class="wrapper  theme-1-active pimary-color-blue">
+		<!-- Main Content -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">统计各个城市招聘人数</h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+						<!--图表区域-->
+							<div id="main" style="height: 700px"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Slimscroll JavaScript -->
+	<script src="dist/js/jquery.slimscroll.js"></script>
+	<!-- Fancy Dropdown JS -->
+	<script src="dist/js/dropdown-bootstrap-extended.js"></script>	
+	<!-- Owl JavaScript -->
+	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+	<!-- Switchery JavaScript -->
+	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
+	<!-- Init JavaScript -->
+	<script src="dist/js/init.js"></script>
+</body>
+	<script>
+		//1.创建echats对象
+		var myChart = echarts.init(document.getElementById("main"));
+
+		//2.发送ajax请求 获取后台的数据
+		$.post("/lg_visualization/industry/countCityPosition.do",function(data){
+			//3.在回调函数中设置option
+			myChart.setOption({
+				tooltip: {     //提示组件
+					trigger: 'item',  //触发类型:  item 如果是散点图 饼图
+					formatter: '{a} <br/>{b}: {c} ({d}%)'  //代表提示悬浮窗的格式  {a} {b} {c} 分别代表系列名  数据名 数值
+				},
+				legend: {   //图例组件
+					orient: 'vertical',  //代表布局方式  vertical 水平布局
+					left: 10,   //图例举例容器左边10像素
+					data: data.data.cityNamesList
+				},
+				series: [  //系列列表
+					{
+						name: '各个城市招聘人数',  //系列名称
+						type: 'pie',             //图表类型  pie饼图
+						selectedMode: 'single',  //选中模式 : single 选择单个
+						radius: [0, '30%'],      //代表图表的半径
+
+						label: {        //饼图标签上的信息
+							position: 'inner'   // 饼图扇区内部展示信息
+						},
+						labelLine: {   //标签视觉的引导线
+							show: false   //关闭视觉引导线
+						},
+						data: data.data.thridList   //内部饼图的数据
+					},
+					{
+						name: '各个城市招聘人数',
+						type: 'pie',
+						radius: ['40%', '55%'],  //外层的饼图
+						label: {
+							formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+							backgroundColor: '#eee',
+							borderColor: '#aaa',
+							borderWidth: 1,
+							borderRadius: 4,
+							rich: {    //自定义富文本样式
+								a: {
+									color: '#999',
+									lineHeight: 22,
+									align: 'center'
+								},
+								hr: {
+									borderColor: '#aaa',
+									width: '100%',
+									borderWidth: 0.5,
+									height: 0
+								},
+								b: {
+									fontSize: 16,
+									lineHeight: 33
+								},
+								per: {
+									color: '#eee',
+									backgroundColor: '#334455',
+									padding: [2, 4],
+									borderRadius: 2
+								}
+							}
+						},
+						data: data.data.dataList  //外层饼图的数据
+					}
+				]
+			})
+		},"json");
+
+
+
+	</script>
+</html>
