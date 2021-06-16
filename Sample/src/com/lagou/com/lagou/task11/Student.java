@@ -14,9 +14,7 @@ public class Student extends Person {
         return Objects.equals(name, student.name);
     }
 
-    public void test(){
 
-    }
 
     @Override
     public int hashCode() {

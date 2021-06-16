@@ -1,5 +1,9 @@
 package com.lagou.task16;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class RunnableTest implements Runnable {
     public static void main(String[] args) {
         RunnableTest test = new RunnableTest();
@@ -9,12 +13,7 @@ public class RunnableTest implements Runnable {
         thread.run();
 
 
-        new Thread(new RunnableTest(){
-            @Override
-            public void run(){
-                System.out.println();
-            }
-        }).start();
+
 
         new Thread(()->{
             System.out.println();
