@@ -92,8 +92,20 @@ object HbaseUtil {
       .load().rdd
       .collect().size
   }
+  def sh(): Unit = {
+    //    val sparkConf = new SparkConf().setAppName("Spark-HBase").setMaster("local[4]")
+    //    sparkConf.set("spark.hbase.host", "10.0.0.10") //e.g. 192.168.1.1 or localhost or your hostanme
+    val spark = createSparkSession("test")
+    val sparkConf = spark.sparkContext.getConf
+    sparkConf.set("hbase.zookeeper.quorum", "10.0.0.10,10.0.0.4,10.0.0.14")
+    sparkConf.set("hbase.zookeeper.property.clientPort", "2181")
+    val sc = spark.sparkContext
+    val docRdd = sc.hbaseTable[(Option[String], Option[String])]("gps_geo")
+      .select("geohash").inColumnFamily("g")
+    println("Number of Records found : " + docRdd.count())
+  }
 
   def main(args: Array[String]): Unit = {
-    sparkHbaseConnector()
+    sh()
   }
 }
