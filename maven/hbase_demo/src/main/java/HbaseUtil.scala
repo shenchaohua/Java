@@ -1,4 +1,8 @@
-
+import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
+import org.apache.hadoop.hbase.client.{ConnectionFactory, Get, HTable, Scan}
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
 
 object HbaseUtil {
   def createSparkSession(className: String): SparkSession = {
@@ -50,19 +54,19 @@ object HbaseUtil {
     scan.setStartRow("0000000y".getBytes());
     scan.setStopRow("0000000y".getBytes());
     val resultScanner = tb.getScanner(scan);
-    resultScanner.forEach(
-      result =>{
-        val cells = result.rawCells()
-        for (cell <- cells) {
-          //通过cell获取rowkey,cf,column,value
-          val cf = Bytes.toString(CellUtil.cloneFamily(cell));
-          val column = Bytes.toString(CellUtil.cloneQualifier(cell));
-          val value = Bytes.toString(CellUtil.cloneValue(cell));
-          val rowkey = Bytes.toString(CellUtil.cloneRow(cell));
-          println(rowkey + "----" + cf + "--" + column + "---" + value);
-        }
-      }
-    )
+//    resultScanner.forEach(
+//      result =>{
+//        val cells = result.rawCells()
+//        for (cell <- cells) {
+//          //通过cell获取rowkey,cf,column,value
+//          val cf = Bytes.toString(CellUtil.cloneFamily(cell));
+//          val column = Bytes.toString(CellUtil.cloneQualifier(cell));
+//          val value = Bytes.toString(CellUtil.cloneValue(cell));
+//          val rowkey = Bytes.toString(CellUtil.cloneRow(cell));
+//          println(rowkey + "----" + cf + "--" + column + "---" + value);
+//        }
+//      }
+//    )
     tb.close();
     conn.close()
   }
