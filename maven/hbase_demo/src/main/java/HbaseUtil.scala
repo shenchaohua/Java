@@ -1,3 +1,4 @@
+import it.nerdammer.spark.hbase.toHBaseSparkContext
 import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
 import org.apache.hadoop.hbase.client.{ConnectionFactory, Get, HTable, Scan}
 import org.apache.hadoop.hbase.util.Bytes
@@ -85,27 +86,26 @@ object HbaseUtil {
   def sparkHbaseConnector(): Unit ={
     val spark = createSparkSession("test")
     val jdbcDF = spark.read.format("org.apache.hadoop.hbase.spark")
-      .option("url", "jdbc:hive2://106.52.78.85:8081/default?allowMultiQueries=true")
-      .option("driver", "org.apache.hive.jdbc.HiveDriver")
-      .option("dbtable","gps_geo")
-      .option("user", "hadoop").option("password", "Pswdforx123!")
+      .option("hbase.table", "gps_geo")
+      .option("spark.hbase.host", "10.0.0.16")
       .load().rdd
       .collect().size
   }
   def sh(): Unit = {
-    //    val sparkConf = new SparkConf().setAppName("Spark-HBase").setMaster("local[4]")
-    //    sparkConf.set("spark.hbase.host", "10.0.0.10") //e.g. 192.168.1.1 or localhost or your hostanme
-    val spark = createSparkSession("test")
-    val sparkConf = spark.sparkContext.getConf
-    sparkConf.set("hbase.zookeeper.quorum", "10.0.0.10,10.0.0.4,10.0.0.14")
-    sparkConf.set("hbase.zookeeper.property.clientPort", "2181")
-    val sc = spark.sparkContext
+        val sparkConf = new SparkConf().setAppName("Spark-HBase").setMaster("local[4]")
+        sparkConf.set("spark.hbase.host", "10.0.0.16") //e.g. 192.168.1.1 or localhost or your hostanme
+//    val spark = createSparkSession("test")
+//    val sparkConf = spark.sparkContext.getConf
+//    sparkConf.set("hbase.zookeeper.quorum", "10.0.0.10,10.0.0.4,10.0.0.14")
+//    sparkConf.set("hbase.zookeeper.property.clientPort", "2181")
+//    val sc = spark.sparkContext
+    val sc = new SparkContext(sparkConf)
     val docRdd = sc.hbaseTable[(Option[String], Option[String])]("gps_geo")
       .select("geohash").inColumnFamily("g")
     println("Number of Records found : " + docRdd.count())
   }
 
   def main(args: Array[String]): Unit = {
-    sh()
+    sparkHbaseConnector()
   }
 }
