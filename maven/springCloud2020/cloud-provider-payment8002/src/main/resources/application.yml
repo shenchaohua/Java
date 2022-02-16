@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
@@ -26,5 +26,5 @@ eureka:
       #单机版
       defaultZone: http://linux1:7001/eureka,http://linux2:7001/eureka
   instance:
-    instance-id: payment01
+    instance-id: payment02
     prefer-ip-address: true
