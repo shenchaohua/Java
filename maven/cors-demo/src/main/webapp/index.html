@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+</head>
+<body>
+<form action="http://linux1:8080/hello" method="post">
+    <input type="text" name="name" value="czl">
+    <button type="text" id="btn">submit</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $("#btn").click(function (e) {
+        e.preventDefault()
+        $.ajax({
+            type: "POST",
+            beforeSend: function(request) {
+                request.setRequestHeader("myheader", "name");
+            },
+            url: "http://linux1:8080/hello",
+            success: function(data,status) {
+                console.log(data, status)
+            }
+        });
+    })
+
+</script>
+</body>
+</html>
