@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>springbootNio</module>
+        <module>tomcat</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -7,3 +7,6 @@ server:
   tomcat:
     threads:
       max: 1
+
+
+    processor-cache: 1

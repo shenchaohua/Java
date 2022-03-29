@@ -20,7 +20,7 @@ public class ReturnController {
 //            e.printStackTrace();
 //        }
         int sum=0;
-        for(int i=1;i<1000000000;i++) {
+        for(int i=1;i<2000000000;i++) {
             sum += i;
             sum /= i;
             sum -= i/2;
