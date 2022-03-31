@@ -41,6 +41,12 @@ public class demo {
         System.out.println("删除数据成功！！");
     }
 
+    public void scan() throws IOException {
+        final Table worker = conn.getTable(TableName.valueOf("relationship"));
+        Scan scan = new Scan();
+        scan.setBatch(111);
+    }
+
 
     public static void main(String[] args) throws IOException {
         new demo().init();
