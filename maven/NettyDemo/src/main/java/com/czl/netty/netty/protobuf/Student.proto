@@ -1,0 +1,8 @@
+syntax = "proto3"; // 指定proto版本
+
+option java_outer_classname="StudentModel";
+
+message Student {
+    int32 id=1;
+    string name=2;
+}
