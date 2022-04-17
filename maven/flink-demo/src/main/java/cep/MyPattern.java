@@ -1,3 +1,5 @@
+package cep;
+
 public class MyPattern {
     private String firstAction;
     private String secondAction;
@@ -29,7 +31,7 @@ public class MyPattern {
 
     @Override
     public String toString() {
-        return "MyPattern{" +
+        return "cep.MyPattern{" +
                 "firstAction='" + firstAction + '\'' +
                 ", secondAction='" + secondAction + '\'' +
                 '}';

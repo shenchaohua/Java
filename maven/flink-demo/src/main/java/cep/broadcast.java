@@ -1,3 +1,9 @@
+package cep;
+
+import cep.MyPattern;
+import cep.UserAction;
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.state.*;
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -10,28 +16,36 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.co.KeyedBroadcastProcessFunction;
 import org.apache.flink.util.Collector;
 
+import java.time.Duration;
+
 
 public class broadcast {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(4);
-        UserAction ac1 = new UserAction(1001l, "login");
-        UserAction ac2 = new UserAction(1003l, "pay");
-        UserAction ac3 = new UserAction(1002l, "car");
-        UserAction ac4 = new UserAction(1001l, "logout");
-        UserAction ac5 = new UserAction(1003l, "car");
-        UserAction ac6 = new UserAction(1002l, "logout");
+        UserAction ac1 = new UserAction(1001l, "login", 1000L);
+        UserAction ac2 = new UserAction(1001l, "pay", 3000L);
+        UserAction ac4 = new UserAction(1001l, "logout", 2000L);
+        UserAction ac5 = new UserAction(1002l, "login", 1000L);
+        UserAction ac6 = new UserAction(1002l, "logout", 2000L);
+        UserAction ac3 = new UserAction(1002l, "car", 3000L);
         DataStreamSource<UserAction> actions = env.fromElements(ac1, ac2, ac3,ac4, ac5, ac6);
         MyPattern myPattern1 = new MyPattern("login", "logout");
-        MyPattern myPattern2 = new MyPattern("car", "logout");
+//        MyPattern myPattern1 = new MyPattern("car", "logout");
         DataStreamSource<MyPattern> patterns = env.fromElements(myPattern1);
-        KeyedStream<UserAction, Long> keyed = actions.keyBy(value ->
-                value.getUserId());
-//将模式流广播到下游的所有算子
+        KeyedStream<UserAction, Long> keyed =
+                actions.assignTimestampsAndWatermarks(WatermarkStrategy.<UserAction>forBoundedOutOfOrderness(Duration.ofSeconds(10))
+                        .withTimestampAssigner(new SerializableTimestampAssigner<UserAction>() {
+                            @Override
+                            public long extractTimestamp(UserAction userAction, long l) {
+                                return userAction.getTs();
+                            }
+                        }))
+                .keyBy(value -> value.getUserId());
+        //将模式流广播到下游的所有算子
         MapStateDescriptor<Void, MyPattern> bcStateDescriptor = new
                 MapStateDescriptor<>("patterns", Types.VOID, Types.POJO(MyPattern.class));
-        BroadcastStream<MyPattern> broadcastPatterns =
-                patterns.broadcast(bcStateDescriptor);
+        BroadcastStream<MyPattern> broadcastPatterns = patterns.broadcast(bcStateDescriptor);
         SingleOutputStreamOperator<Tuple2<Long, MyPattern>> process =
                 keyed.connect(broadcastPatterns).process(new PatternEvaluator());
 //将匹配成功的结果输出到控制台
