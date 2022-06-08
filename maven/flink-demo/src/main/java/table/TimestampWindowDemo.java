@@ -31,7 +31,6 @@ public class TimestampWindowDemo {
                 "'format' = 'csv' " +
                 ")");
 
-
         SingleOutputStreamOperator<TableApiDemo.Event> stream = env.fromElements(
                 new TableApiDemo.Event("czl", 1),
                 new TableApiDemo.Event("czl", 2)
@@ -42,7 +41,7 @@ public class TimestampWindowDemo {
                         return e.ts;
                     }
                 }));
-
+        // “分组窗口”函数
         Table table = tableEnv.fromDataStream(stream, $("username"), $("ts"), $("et").rowtime());
         Table result = tableEnv.sqlQuery("select " +
                 "username, count(1) as cnt, TUMBLE_END(et, INTERVAL '1' SECOND) as endT " +
@@ -50,12 +49,14 @@ public class TimestampWindowDemo {
                 "group by username, TUMBLE(et, INTERVAL '1' SECOND)");
         tableEnv.toDataStream(result).print();
 
+        //窗口表值函数（ Windowing TVFs，新版本1.13）
         Table result2 = tableEnv.sqlQuery("select " +
                 "username, count(1) as cnt, window_end as endT " +
                 "from TABLE(TUMBLE(TABLE input, DESCRIPTOR(et), INTERVAL '1' second)) " +
                 "group by username, window_start, window_end");
-        tableEnv.toDataStream(result2).print();
+        tableEnv.toDataStream(result2).print("2");
 
+        // 聚合
         Table result3 = tableEnv.sqlQuery("select " +
                 "username, avg(ts) over(partition by username order by et rows between 3 preceding and current row) as avg_ts " +
                 "from input");

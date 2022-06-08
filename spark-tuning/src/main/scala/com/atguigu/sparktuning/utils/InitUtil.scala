@@ -19,6 +19,7 @@ object InitUtil {
     sparkSession.sql("drop table sale_course")
     sparkSession.sql("drop table course_shopping_cart")
     sparkSession.sql("drop table course_pay")
+    sparkSession.sql("drop table salecourse_detail")
   }
 
   def initSparkSession( sparkConf: SparkConf ): SparkSession = {

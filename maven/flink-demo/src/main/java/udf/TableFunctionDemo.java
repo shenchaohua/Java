@@ -2,12 +2,9 @@ package udf;
 
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.table.annotation.FunctionHint;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.table.functions.ScalarFunction;
 import org.apache.flink.table.functions.TableFunction;
-import scala.Tuple12;
 
 public class TableFunctionDemo {
     public static void main(String[] args) throws Exception {

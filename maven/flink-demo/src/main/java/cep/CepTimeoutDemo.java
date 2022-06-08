@@ -1,6 +1,5 @@
 package cep;
 
-import org.apache.calcite.linq4j.Ord;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.cep.CEP;
@@ -20,7 +19,6 @@ import org.apache.flink.util.OutputTag;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class CepTimeoutDemo {
     public static void main(String[] args) throws Exception {

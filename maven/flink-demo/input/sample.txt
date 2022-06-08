@@ -1,10 +1,9 @@
 bob,/index,2000
 czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
-czl,/home,1000
+czl,/home,2000
+czl,/home,3000
+czl,/home,4000
+czl,/home,4500
+czl,/home,5500
+czl,/home,6000
+czl,/home,4000

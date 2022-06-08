@@ -13,7 +13,7 @@ object SkewJoinTuning {
     val sparkConf = new SparkConf().setAppName("SkewJoinTuning")
       .set("spark.sql.autoBroadcastJoinThreshold", "-1")
       .set("spark.sql.shuffle.partitions", "36")
-          .setMaster("local[*]")
+//          .setMaster("local[*]")
     val sparkSession: SparkSession = InitUtil.initSparkSession(sparkConf)
 
     scatterBigAndExpansionSmall(sparkSession)
@@ -29,11 +29,12 @@ object SkewJoinTuning {
     */
   def scatterBigAndExpansionSmall( sparkSession: SparkSession ): Unit = {
     import sparkSession.implicits._
-    val saleCourse = sparkSession.sql("select *from sparktuning.sale_course")
-    val coursePay = sparkSession.sql("select * from sparktuning.course_pay")
+
+    val saleCourse = sparkSession.sql("select * from sale_course")
+    val coursePay = sparkSession.sql("select * from course_pay")
       .withColumnRenamed("discount", "pay_discount")
       .withColumnRenamed("createtime", "pay_createtime")
-    val courseShoppingCart = sparkSession.sql("select * from sparktuning.course_shopping_cart")
+    val courseShoppingCart = sparkSession.sql("select * from course_shopping_cart")
       .withColumnRenamed("discount", "cart_discount")
       .withColumnRenamed("createtime", "cart_createtime")
 
@@ -97,7 +98,7 @@ object SkewJoinTuning {
     // TODO 6、将 倾斜key join后的结果 与 普通key join后的结果，uinon起来
     df1
       .union(df2)
-      .write.mode(SaveMode.Overwrite).insertInto("sparktuning.salecourse_detail")
+      .write.mode(SaveMode.Overwrite).saveAsTable("salecourse_detail")
   }
 
 
