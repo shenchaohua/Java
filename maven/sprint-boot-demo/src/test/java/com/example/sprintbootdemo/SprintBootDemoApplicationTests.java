@@ -43,7 +43,7 @@ class SprintBootDemoApplicationTests {
 
     @Test
     void contextLoads2() {
-        Account comment = accountDao.getOneAccount(1);
+        Account comment = accountDao.getById(1);
         System.out.println(comment);
     }
 }
